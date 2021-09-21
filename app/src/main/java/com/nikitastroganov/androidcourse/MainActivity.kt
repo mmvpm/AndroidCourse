@@ -1,40 +1,70 @@
 package com.nikitastroganov.androidcourse
 
 import android.annotation.SuppressLint
-import android.net.Uri
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import by.kirich1409.viewbindingdelegate.viewBinding
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+
+import com.nikitastroganov.androidcourse.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
-    @SuppressLint("NotifyDataSetChanged", "UseCompatLoadingForDrawables")
+    private val viewModel: MainViewModel by viewModels()
+
+    private val viewBinding by viewBinding(ActivityMainBinding::bind)
+
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val recyclerView: RecyclerView = findViewById(R.id.usersRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        switchLoadingButton(true)
 
-        val dividerItemDecoration = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
-        dividerItemDecoration.setDrawable(getDrawable(R.drawable.item_user_divider)!!)
-        recyclerView.addItemDecoration(dividerItemDecoration)
+        val adapter = setupRecyclerView(viewBinding.usersRecyclerView)
 
-        val adapter = UserAdapter()
-        recyclerView.adapter = adapter
-        adapter.userList = loadUsers()
-        adapter.notifyDataSetChanged()
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.viewState.collect { viewState ->
+                    when (viewState) {
+                        is MainViewModel.ViewState.Data -> {
+                            adapter.userList = viewState.userList
+                            switchLoadingButton(false)
+                        }
+                        is MainViewModel.ViewState.Loading -> {
+                            switchLoadingButton(true)
+                        }
+                    }
+                }
+                adapter.notifyDataSetChanged()
+            }
+        }
     }
 
-    private fun loadUsers(): List<User> {
-        return (1..1_000_000).toList().map { index ->
-            User(
-                avatarUri = Uri.EMPTY,
-                userName = "user #$index",
-                groupName = "group"
-            )
-        }
+    private fun switchLoadingButton(loading: Boolean) {
+        viewBinding.progressBar.isVisible = loading
+        viewBinding.usersRecyclerView.isVisible = !loading
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun setupItemDecoration(recyclerView: RecyclerView) {
+        val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        divider.setDrawable(getDrawable(R.drawable.item_user_divider)!!)
+        recyclerView.addItemDecoration(divider)
+    }
+
+    private fun setupRecyclerView(recyclerView: RecyclerView): UserAdapter {
+        val adapter = UserAdapter()
+        recyclerView.adapter = adapter
+        setupItemDecoration(recyclerView)
+        return adapter
     }
 }
