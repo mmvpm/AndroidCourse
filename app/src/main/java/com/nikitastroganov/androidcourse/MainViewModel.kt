@@ -1,10 +1,13 @@
 package com.nikitastroganov.androidcourse
 
-import androidx.lifecycle.*
+import android.util.Log
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -13,15 +16,15 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 class MainViewModel : ViewModel() {
 
-    private val viewStateInternal: MutableStateFlow<ViewState> =
-        MutableStateFlow(ViewState.Loading)
-    val viewState: StateFlow<ViewState> = viewStateInternal
+    private val _viewState = MutableStateFlow<ViewState>(ViewState.Loading)
+
+    val viewState: Flow<ViewState> get() = _viewState.asStateFlow()
 
     init {
         viewModelScope.launch {
-            viewStateInternal.value = ViewState.Loading
+            _viewState.emit(ViewState.Loading)
             val users = loadUsers()
-            viewStateInternal.value = ViewState.Data(users)
+            _viewState.emit(ViewState.Data(users))
         }
     }
 
@@ -32,6 +35,7 @@ class MainViewModel : ViewModel() {
 
     private suspend fun loadUsers(): List<User> {
         return withContext(Dispatchers.IO) {
+            Log.d(MainActivity.LOG_TAG, "loadUsers()")
             provideApi().getUsers().data
         }
     }
