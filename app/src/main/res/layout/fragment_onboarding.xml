@@ -7,7 +7,7 @@
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/playerView"
         android:layout_width="0dp"
-        android:layout_height="400dp"
+        android:layout_height="300dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -35,5 +35,48 @@
         android:src="@drawable/ic_volume_off_white_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerView" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/onboardingTextTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/onboarding_dot_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewPager"
+        app:tabBackground="@drawable/bg_onboarding_dot_normal"
+        app:tabGravity="center"
+        app:tabIndicator="@drawable/bg_onboarding_dot_indicator"
+        app:tabIndicatorColor="#000000"
+        app:tabIndicatorGravity="center"
+        app:tabMaxWidth="18dp"
+        app:tabMinWidth="18dp" />
+
+    <Button
+        android:text="@string/onboarding_sign_in_button_text"
+        android:id="@+id/signInButton"
+        android:layout_width="0dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onboardingTextTabLayout" />
+
+    <Button
+        android:text="@string/onboarding_sign_up_button_text"
+        android:id="@+id/signUpButton"
+        android:layout_width="0dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/signInButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

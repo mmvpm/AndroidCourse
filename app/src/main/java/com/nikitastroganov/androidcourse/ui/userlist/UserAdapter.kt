@@ -1,4 +1,4 @@
-package com.nikitastroganov.androidcourse
+package com.nikitastroganov.androidcourse.ui.userlist
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.nikitastroganov.androidcourse.R
+import com.nikitastroganov.androidcourse.entity.User
 
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {

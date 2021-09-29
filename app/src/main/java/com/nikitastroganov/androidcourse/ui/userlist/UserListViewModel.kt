@@ -1,8 +1,9 @@
-package com.nikitastroganov.androidcourse
+package com.nikitastroganov.androidcourse.ui.userlist
 
-import android.util.Log
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nikitastroganov.androidcourse.Api
+import com.nikitastroganov.androidcourse.entity.User
+import com.nikitastroganov.androidcourse.ui.base.BaseViewModel
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +15,12 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class MainViewModel : ViewModel() {
+class UserListViewModel : BaseViewModel() {
+
+    sealed class ViewState {
+        object Loading : ViewState()
+        data class Data(val userList: List<User>) : ViewState()
+    }
 
     private val _viewState = MutableStateFlow<ViewState>(ViewState.Loading)
 
@@ -28,14 +34,8 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    sealed class ViewState {
-        object Loading : ViewState()
-        data class Data(val userList: List<User>) : ViewState()
-    }
-
     private suspend fun loadUsers(): List<User> {
         return withContext(Dispatchers.IO) {
-            Log.d(MainActivity.LOG_TAG, "loadUsers()")
             provideApi().getUsers().data
         }
     }
