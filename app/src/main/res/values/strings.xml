@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AndroidCourse</string>
+
+    <string name="onboarding_view_pager_text_1">Осень 2021, МКН СПбГУ</string>
+    <string name="onboarding_view_pager_text_2">Мы изучаем разработку под Android</string>
+    <string name="onboarding_view_pager_text_3">Добро пожаловать в команду</string>
+    <string name="onboarding_sign_in_button_text">Войти</string>
+    <string name="onboarding_sign_up_button_text">Создать аккаунт</string>
 </resources>

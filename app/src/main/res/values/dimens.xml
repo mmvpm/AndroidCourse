@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="onboarding_dot_size">8dp</dimen>
+    <dimen name="onboarding_dot_size_half">4dp</dimen>
+</resources>
