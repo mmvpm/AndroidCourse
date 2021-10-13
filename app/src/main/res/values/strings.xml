@@ -6,4 +6,10 @@
     <string name="onboarding_view_pager_text_3">Добро пожаловать в команду</string>
     <string name="onboarding_sign_in_button_text">Войти</string>
     <string name="onboarding_sign_up_button_text">Создать аккаунт</string>
+
+    <string name="bottom_navigation_title_home">Лента</string>
+    <string name="bottom_navigation_title_people">Люди</string>
+    <string name="bottom_navigation_title_favorite">Лайки</string>
+    <string name="bottom_navigation_title_bookmarks">Закладки</string>
+    <string name="bottom_navigation_title_person">Профиль</string>
 </resources>

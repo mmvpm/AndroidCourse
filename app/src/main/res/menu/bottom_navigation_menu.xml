@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/newsFragment"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/bottom_navigation_title_home" />
+
+    <item
+        android:id="@+id/userListFragment"
+        android:icon="@drawable/ic_baseline_people_alt_24"
+        android:title="@string/bottom_navigation_title_people" />
+
+    <item
+        android:id="@+id/likesFragment"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        android:title="@string/bottom_navigation_title_favorite" />
+
+    <item
+        android:id="@+id/bookmarksFragment"
+        android:icon="@drawable/ic_baseline_bookmarks_24"
+        android:title="@string/bottom_navigation_title_bookmarks" />
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="@string/bottom_navigation_title_person" />
+
+</menu>
