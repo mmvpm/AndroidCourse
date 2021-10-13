@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.nikitastroganov.androidcourse.ui.singin.SignInFragment"
+        android:name="com.nikitastroganov.androidcourse.ui.signin.SignInFragment"
         android:label="SignInFragment" />
     <fragment
         android:id="@+id/signUpFragment"

@@ -3,6 +3,7 @@ package com.nikitastroganov.androidcourse.ui.onboarding
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.exoplayer2.ExoPlayer
@@ -44,12 +45,10 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
             setPlayerVolume(playerVolumeOn)
         }
         viewBinding.signInButton.setOnClickListener {
-            // TODO
-            Toast.makeText(requireContext(), "Нажата кнопка sign in", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_onboardingFragment_to_signInFragment)
         }
         viewBinding.signUpButton.setOnClickListener {
-            // TODO
-            Toast.makeText(requireContext(), "Нажата кнопка sign up", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_onboardingFragment_to_signUpFragment)
         }
     }
 
