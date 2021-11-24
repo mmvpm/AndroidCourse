@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name = "user_list_divider_color">#DDDDDD</color>
     <color name="gray">#CCCCCC</color>
+    <color name="brand_blue">#FF018786</color>
 </resources>
