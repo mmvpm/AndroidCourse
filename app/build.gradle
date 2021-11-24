@@ -1,7 +1,8 @@
 plugins {
-    id "com.android.application"
-    id "kotlin-android"
-    id "kotlin-kapt"
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -13,6 +14,9 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
+        buildConfigField "Boolean", "USE_MOCK_BACKEND_API", 'false'
+        // TODO: Прописать адрес нашего сервера.
+        buildConfigField "String", "BACKEND_API_URL", '""'
     }
 
     buildTypes {
@@ -34,11 +38,56 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    flavorDimensions "deployment-environment"
+
+    productFlavors {
+        mock {
+            dimension "deployment-environment"
+            applicationIdSuffix ".mock"
+            versionNameSuffix ".mock"
+            buildConfigField "Boolean", "USE_MOCK_BACKEND_API", 'true'
+        }
+        dev {
+            dimension "deployment-environment"
+            applicationIdSuffix ".dev"
+            versionNameSuffix ".dev"
+            buildConfigField "String", "BACKEND_API_URL", '""'
+        }
+        stage {
+            dimension "deployment-environment"
+            applicationIdSuffix ".stage"
+            versionNameSuffix ".stage"
+            buildConfigField "String", "BACKEND_API_URL", '""'
+        }
+        prod {
+            dimension "deployment-environment"
+            versionNameSuffix ".prod"
+            // Despite the default config, all the variables are specified explicitly here,
+            // because this product flavor is the most sensitive to errors.
+            buildConfigField "Boolean", "USE_MOCK_BACKEND_API", 'false'
+            buildConfigField "String", "BACKEND_API_URL", '""'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = "android-course-${variant.versionName}-${variant.buildType.name}.apk"
+        }
+    }
+}
+
+kapt {
+    correctErrorTypes true
+}
+
+hilt {
+    enableAggregatingTask = true
 }
 
 dependencies {
 
-    implementation "androidx.core:core-ktx:1.6.0"
+    implementation "androidx.core:core-ktx:1.7.0"
     implementation "androidx.appcompat:appcompat:1.3.1"
     implementation "com.google.android.material:material:1.4.0"
     implementation "androidx.constraintlayout:constraintlayout:2.1.1"
@@ -59,10 +108,10 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
 
     // AndroidX
-    def lifecycleVersion = "2.4.0-beta01"
+    def lifecycleVersion = "2.4.0"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
-    implementation "androidx.activity:activity-ktx:1.4.0-beta01"
+    implementation "androidx.activity:activity-ktx:1.4.0"
 
     // Image loading
     def glideVersion = "4.11.0"
@@ -73,7 +122,7 @@ dependencies {
     implementation "com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.4.4"
 
     // Video player
-    def exoPlayerVersion = "2.15.1"
+    def exoPlayerVersion = "2.16.0"
     implementation "com.google.android.exoplayer:exoplayer-core:$exoPlayerVersion"
     implementation "com.google.android.exoplayer:exoplayer-ui:$exoPlayerVersion"
 
@@ -87,7 +136,17 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
     // Navigation
-    def navigationVersion = "2.4.0-alpha10"
+    def navigationVersion = "2.4.0-beta02"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+
+    // System insets handling
+    implementation "dev.chrisbanes.insetter:insetter:0.6.0"
+    implementation "com.github.haroldadmin:NetworkResponseAdapter:4.2.2"
+
+    // Dependency injection
+    def hiltVersion = "2.40.1"
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-compiler:$hiltVersion"
+    implementation "androidx.hilt:hilt-navigation-fragment:1.0.0"
 }
