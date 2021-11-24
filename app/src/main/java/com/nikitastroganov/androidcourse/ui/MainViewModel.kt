@@ -1,11 +1,16 @@
 package com.nikitastroganov.androidcourse.ui
 
-import com.nikitastroganov.androidcourse.repository.AuthRepository
+import com.nikitastroganov.androidcourse.interactor.AuthInteractor
 import com.nikitastroganov.androidcourse.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Inject
 
-class MainViewModel : BaseViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val authInteractor: AuthInteractor
+) : BaseViewModel() {
 
-    val isAuthorizedFlow: Flow<Boolean> = AuthRepository.isAuthorizedFlow
+    suspend fun isAuthorizedFlow(): Flow<Boolean> =
+        authInteractor.isAuthorized()
 }
