@@ -2,4 +2,13 @@
 <resources>
     <dimen name="onboarding_dot_size">8dp</dimen>
     <dimen name="onboarding_dot_size_half">4dp</dimen>
+    <dimen name="edit_text_min_height">56dp</dimen>
+    <dimen name="edit_text_min_height_sp">56sp</dimen>
+    <dimen name="edit_text_corner_radius">10dp</dimen>
+    <dimen name="edit_text_message_corner_radius">8dp</dimen>
+    <dimen name="edit_text_horizontal_padding">16dp</dimen>
+    <dimen name="bottom_sheet_toolbar_height">48dp</dimen>
+    <dimen name="verification_code_slot_corner_radius">10dp</dimen>
+    <dimen name="verification_code_slot_width">48dp</dimen>
+    <dimen name="verification_code_slot_height">56dp</dimen>
 </resources>

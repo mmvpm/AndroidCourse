@@ -13,4 +13,17 @@
     <string name="bottom_navigation_title_bookmarks">Закладки</string>
     <string name="bottom_navigation_title_person">Профиль</string>
     <string name="sign_in_sign_in_button_text">Войти</string>
+    <string name="sign_in_email_text_layout_hint">Почта</string>
+    <string name="sign_in_password_text_layout_hint">Пароль</string>
+    <string name="sign_in_back_alert_dialog_text">Введённые данные пропадут</string>
+    <string name="sign_in_back_alert_dialog_yes_text">Ну и пусть</string>
+    <string name="sign_in_back_alert_dialog_no_text">Отмена!</string>
+    <string name="sign_up_club_rules">правила клуба</string>
+    <string name="sign_up_terms_and_conditions_template">Я принимаю %s</string>
+    <string name="sign_up_sign_up_button_text">Зарегистрироваться</string>
+    <string name="sign_up_under_email_text">Почта не будет видна другим пользователям</string>
+    <string name="sign_up_under_nickname_text">Псевдоним будет виден другим пользователям</string>
+    <string name="sign_up_nickname_text_layout_hint">Псевдоним</string>
+    <string name="sign_up_lastname_text_layout_hint">Фамилия</string>
+    <string name="sign_up_firstname_text_layout_hint">Имя</string>
 </resources>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <com.nikitastroganov.androidcourse.ui.emailconfirmation.VerificationCodeSlotView
+        android:id="@+id/slot1"
+        android:layout_width="@dimen/verification_code_slot_width"
+        android:layout_height="@dimen/verification_code_slot_height"
+        android:background="@drawable/selector_bg_verification_code_slot"
+        app:layout_constraintBottom_toBottomOf="@+id/realVerificationCodeEditText"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="@+id/realVerificationCodeEditText"
+        app:layout_constraintRight_toLeftOf="@+id/slot2"
+        app:layout_constraintTop_toTopOf="@+id/realVerificationCodeEditText"
+        tools:ignore="RtlHardcoded" />
+
+    <com.nikitastroganov.androidcourse.ui.emailconfirmation.VerificationCodeSlotView
+        android:id="@+id/slot2"
+        android:layout_width="@dimen/verification_code_slot_width"
+        android:layout_height="@dimen/verification_code_slot_height"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/selector_bg_verification_code_slot"
+        app:layout_constraintBottom_toBottomOf="@+id/realVerificationCodeEditText"
+        app:layout_constraintLeft_toRightOf="@+id/slot1"
+        app:layout_constraintRight_toLeftOf="@+id/slot3"
+        app:layout_constraintTop_toTopOf="@+id/realVerificationCodeEditText"
+        tools:ignore="RtlHardcoded" />
+
+    <com.nikitastroganov.androidcourse.ui.emailconfirmation.VerificationCodeSlotView
+        android:id="@+id/slot3"
+        android:layout_width="@dimen/verification_code_slot_width"
+        android:layout_height="@dimen/verification_code_slot_height"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/selector_bg_verification_code_slot"
+        app:layout_constraintBottom_toBottomOf="@+id/realVerificationCodeEditText"
+        app:layout_constraintLeft_toRightOf="@+id/slot2"
+        app:layout_constraintRight_toLeftOf="@+id/slot4"
+        app:layout_constraintTop_toTopOf="@+id/realVerificationCodeEditText"
+        tools:ignore="RtlHardcoded" />
+
+    <com.nikitastroganov.androidcourse.ui.emailconfirmation.VerificationCodeSlotView
+        android:id="@+id/slot4"
+        android:layout_width="@dimen/verification_code_slot_width"
+        android:layout_height="@dimen/verification_code_slot_height"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/selector_bg_verification_code_slot"
+        app:layout_constraintBottom_toBottomOf="@+id/realVerificationCodeEditText"
+        app:layout_constraintLeft_toRightOf="@+id/slot3"
+        app:layout_constraintRight_toLeftOf="@+id/slot5"
+        app:layout_constraintTop_toTopOf="@+id/realVerificationCodeEditText"
+        tools:ignore="RtlHardcoded" />
+
+    <com.nikitastroganov.androidcourse.ui.emailconfirmation.VerificationCodeSlotView
+        android:id="@+id/slot5"
+        android:layout_width="@dimen/verification_code_slot_width"
+        android:layout_height="@dimen/verification_code_slot_height"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/selector_bg_verification_code_slot"
+        app:layout_constraintBottom_toBottomOf="@+id/realVerificationCodeEditText"
+        app:layout_constraintLeft_toRightOf="@+id/slot4"
+        app:layout_constraintRight_toLeftOf="@+id/slot6"
+        app:layout_constraintTop_toTopOf="@+id/realVerificationCodeEditText"
+        tools:ignore="RtlHardcoded" />
+
+    <com.nikitastroganov.androidcourse.ui.emailconfirmation.VerificationCodeSlotView
+        android:id="@+id/slot6"
+        android:layout_width="@dimen/verification_code_slot_width"
+        android:layout_height="@dimen/verification_code_slot_height"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/selector_bg_verification_code_slot"
+        app:layout_constraintBottom_toBottomOf="@+id/realVerificationCodeEditText"
+        app:layout_constraintLeft_toRightOf="@+id/slot5"
+        app:layout_constraintRight_toRightOf="@+id/realVerificationCodeEditText"
+        app:layout_constraintTop_toTopOf="@+id/realVerificationCodeEditText"
+        tools:ignore="RtlHardcoded" />
+
+    <EditText
+        android:id="@+id/realVerificationCodeEditText"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/verification_code_slot_height"
+        android:background="@null"
+        android:cursorVisible="false"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:lines="1"
+        android:longClickable="false"
+        android:maxLength="6"
+        android:textColor="@android:color/transparent"
+        android:textDirection="ltr"
+        android:textIsSelectable="false"
+        android:textSize="0sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UnusedAttribute"
+        tools:text="12345" />
+
+</merge> 
