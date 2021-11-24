@@ -1,7 +1,7 @@
 package com.nikitastroganov.androidcourse.ui.userlist
 
 import androidx.lifecycle.viewModelScope
-import com.nikitastroganov.androidcourse.Api
+import com.nikitastroganov.androidcourse.data.network.Api
 import com.nikitastroganov.androidcourse.entity.User
 import com.nikitastroganov.androidcourse.ui.base.BaseViewModel
 import com.squareup.moshi.Moshi

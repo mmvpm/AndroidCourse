@@ -1,4 +1,4 @@
-package com.nikitastroganov.androidcourse
+package com.nikitastroganov.androidcourse.data.network
 
 import com.haroldadmin.cnradapter.NetworkResponse
 import com.nikitastroganov.androidcourse.data.network.request.CreateProfileRequest
@@ -34,8 +34,7 @@ interface Api {
     @POST("registration/verification-code/verify")
     suspend fun verifyRegistrationCode(
         @Query("code") code: String,
-        @Query("email") email: String?,
-        @Query("phone_number") phoneNumber: String?
+        @Query("email") email: String,
     ): NetworkResponse<VerificationTokenResponse, VerifyRegistrationCodeErrorResponse>
 
     @PUT("registration/create-profile")
