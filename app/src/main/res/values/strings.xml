@@ -26,4 +26,5 @@
     <string name="sign_up_nickname_text_layout_hint">Псевдоним</string>
     <string name="sign_up_lastname_text_layout_hint">Фамилия</string>
     <string name="sign_up_firstname_text_layout_hint">Имя</string>
+    <string name="news_toolbar_title">Мобильная разработка</string>
 </resources>
