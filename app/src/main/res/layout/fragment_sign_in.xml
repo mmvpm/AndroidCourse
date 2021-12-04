@@ -65,6 +65,7 @@
 
     <Button
         android:id="@+id/signInButton"
+        style="@style/Widget.OurAwesomeApp.OrangeButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"

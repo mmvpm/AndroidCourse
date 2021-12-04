@@ -1,2 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <style name="Widget.OurAwesomeApp.LinkButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxWidth">300dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
+        <item name="android:textColor">@color/brand_blue</item>
+    </style>
+
+    <style name="Widget.OurAwesomeApp.OrangeButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/brand_orange</item>
+        <item name="android:backgroundTint">@color/brand_orange</item>
+        <item name="background">@color/brand_orange</item>
+        <item name="android:background">@color/brand_orange</item>
+    </style>
+
+    <style name="Widget.OurAwesomeApp.BlueButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/brand_blue</item>
+        <item name="android:backgroundTint">@color/brand_blue</item>
+        <item name="background">@color/brand_blue</item>
+        <item name="android:background">@color/brand_blue</item>
+    </style>
+</resources>

@@ -1,8 +1,10 @@
 package com.nikitastroganov.androidcourse.ui.userlist
 
 import androidx.lifecycle.viewModelScope
-import com.nikitastroganov.androidcourse.Api
+import com.haroldadmin.cnradapter.NetworkResponse
+import com.nikitastroganov.androidcourse.data.network.Api
 import com.nikitastroganov.androidcourse.entity.User
+import com.nikitastroganov.androidcourse.interactor.UsersInteractor
 import com.nikitastroganov.androidcourse.ui.base.BaseViewModel
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
@@ -14,8 +16,11 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Inject
 
-class UserListViewModel : BaseViewModel() {
+class UserListViewModel @Inject constructor(
+    private val usersInteractor: UsersInteractor
+) : BaseViewModel() {
 
     sealed class ViewState {
         object Loading : ViewState()
@@ -27,33 +32,19 @@ class UserListViewModel : BaseViewModel() {
     val viewState: Flow<ViewState> get() = _viewState.asStateFlow()
 
     init {
+        loadUsers()
+    }
+
+    private fun loadUsers() {
         viewModelScope.launch {
             _viewState.emit(ViewState.Loading)
-            val users = loadUsers()
-            _viewState.emit(ViewState.Data(users))
+            when (val response = usersInteractor.loadUsers()) {
+                is NetworkResponse.Success ->
+                    _viewState.emit(ViewState.Data(response.body))
+                else -> {
+                    // something...
+                }
+            }
         }
-    }
-
-    private suspend fun loadUsers(): List<User> {
-        return withContext(Dispatchers.IO) {
-            provideApi().getUsers().data
-        }
-    }
-
-    private fun provideApi(): Api {
-        return Retrofit.Builder()
-            .client(provideOkHttpClient())
-            .baseUrl("https://reqres.in/api/")
-            .addConverterFactory(MoshiConverterFactory.create(provideMoshi()))
-            .build()
-            .create(Api::class.java)
-    }
-
-    private fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder().build()
-    }
-
-    private fun provideMoshi(): Moshi {
-        return Moshi.Builder().build()
     }
 }

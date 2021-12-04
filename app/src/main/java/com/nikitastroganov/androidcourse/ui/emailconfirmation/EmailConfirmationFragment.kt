@@ -8,6 +8,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.nikitastroganov.androidcourse.R
 import com.nikitastroganov.androidcourse.databinding.FragmentEmailConfirmationBinding
 import com.nikitastroganov.androidcourse.ui.base.BaseFragment
+import dev.chrisbanes.insetter.applyInsetter
 
 class EmailConfirmationFragment : BaseFragment(R.layout.fragment_email_confirmation) {
 
@@ -19,6 +20,9 @@ class EmailConfirmationFragment : BaseFragment(R.layout.fragment_email_confirmat
         super.onViewCreated(view, savedInstanceState)
         viewBinding.backButton.setOnClickListener {
             findNavController().popBackStack()
+        }
+        viewBinding.backButton.applyInsetter {
+            type(statusBars = true) { margin() }
         }
     }
 }

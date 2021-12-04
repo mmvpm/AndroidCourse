@@ -1,7 +1,7 @@
 package com.nikitastroganov.androidcourse.repository
 
 import com.haroldadmin.cnradapter.NetworkResponse
-import com.nikitastroganov.androidcourse.Api
+import com.nikitastroganov.androidcourse.data.network.Api
 import com.nikitastroganov.androidcourse.data.network.request.CreateProfileRequest
 import com.nikitastroganov.androidcourse.data.network.request.RefreshAuthTokensRequest
 import com.nikitastroganov.androidcourse.data.network.request.SignInWithEmailRequest

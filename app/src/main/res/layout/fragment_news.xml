@@ -24,7 +24,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/ic_add_24dp"
-        app:layout_anchor="@+id/viewPager"
+        app:layout_anchor="@+id/newsRecyclerView"
         app:layout_anchorGravity="bottom|end"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
 

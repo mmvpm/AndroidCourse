@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
+import com.nikitastroganov.androidcourse.R
 import com.nikitastroganov.androidcourse.databinding.ViewVerificationCodeEditTextBinding
 import java.lang.Math.min
 
@@ -31,7 +32,9 @@ class VerificationCodeEditText @JvmOverloads constructor(
             viewBinding.slot6
         )
 
-    private val slotValues: Array<CharSequence?> = Array(6) { null }
+    var numberOfSlots = 6
+
+    private val slotValues: Array<CharSequence?> = Array(numberOfSlots) { null }
 
     var onVerificationCodeFilledListener: (String) -> Unit = {}
 
@@ -79,6 +82,18 @@ class VerificationCodeEditText @JvmOverloads constructor(
         }
         slotValues.fillWith(viewBinding.realVerificationCodeEditText.text)
         slotViews.render(slotValues)
+
+        context
+            .theme
+            .obtainStyledAttributes(
+                attrs,
+                R.styleable.VerificationCodeEditText,
+                defStyleAttr,
+                defStyleRes
+            )
+            .apply {
+                numberOfSlots = getInt(R.styleable.VerificationCodeEditText_vcet_numberOfSlots, 6)
+            }
     }
 
     fun getCode(): String {

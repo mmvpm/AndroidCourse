@@ -27,4 +27,7 @@
     <string name="sign_up_lastname_text_layout_hint">Фамилия</string>
     <string name="sign_up_firstname_text_layout_hint">Имя</string>
     <string name="news_toolbar_title">Мобильная разработка</string>
+    <string name="profile_logout_button_text">Выйти</string>
+    <string name="common_general_error_text">Произошла ошибка</string>
+    <string name="common_counter_prefix">+%d</string>
 </resources>

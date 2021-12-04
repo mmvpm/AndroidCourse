@@ -2,7 +2,7 @@ package com.nikitastroganov.androidcourse.di.module
 
 import android.os.Build
 import com.haroldadmin.cnradapter.NetworkResponseAdapterFactory
-import com.nikitastroganov.androidcourse.Api
+import com.nikitastroganov.androidcourse.data.network.Api
 import com.nikitastroganov.androidcourse.BuildConfig
 import com.nikitastroganov.androidcourse.data.network.MockApi
 import com.nikitastroganov.androidcourse.data.network.interceptor.AuthorizationInterceptor

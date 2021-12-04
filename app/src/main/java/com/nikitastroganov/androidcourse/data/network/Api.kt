@@ -1,20 +1,20 @@
-package com.nikitastroganov.androidcourse
+package com.nikitastroganov.androidcourse.data.network
 
 import com.haroldadmin.cnradapter.NetworkResponse
 import com.nikitastroganov.androidcourse.data.network.request.CreateProfileRequest
 import com.nikitastroganov.androidcourse.data.network.request.RefreshAuthTokensRequest
 import com.nikitastroganov.androidcourse.data.network.request.SignInWithEmailRequest
-import com.nikitastroganov.androidcourse.data.network.response.GetUsersResponse
 import com.nikitastroganov.androidcourse.data.network.response.VerificationTokenResponse
 import com.nikitastroganov.androidcourse.data.network.response.error.*
 import com.nikitastroganov.androidcourse.entity.AuthTokens
 import com.nikitastroganov.androidcourse.entity.Post
+import com.nikitastroganov.androidcourse.entity.User
 import retrofit2.http.*
 
 interface Api {
 
-    @GET("users?per_page=10")
-    suspend fun getUsers(): GetUsersResponse
+    @GET("users")
+    suspend fun getUsers(): NetworkResponse<List<User>, Unit>
 
     @POST("auth/sign-in-email")
     suspend fun signInWithEmail(
@@ -34,8 +34,7 @@ interface Api {
     @POST("registration/verification-code/verify")
     suspend fun verifyRegistrationCode(
         @Query("code") code: String,
-        @Query("email") email: String?,
-        @Query("phone_number") phoneNumber: String?
+        @Query("email") email: String,
     ): NetworkResponse<VerificationTokenResponse, VerifyRegistrationCodeErrorResponse>
 
     @PUT("registration/create-profile")
@@ -46,8 +45,3 @@ interface Api {
     @POST("posts")
     suspend fun getPosts(): NetworkResponse<List<Post>, Unit>
 }
-
-//@JsonClass(generateAdapter = true)
-//data class GetUsersResponse(
-//    @Json(name = "data") val data: List<User>
-//)
