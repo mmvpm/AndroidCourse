@@ -13,4 +13,18 @@
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
         <item name="android:textColor">@color/brand_blue</item>
     </style>
+
+    <style name="Widget.OurAwesomeApp.OrangeButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/brand_orange</item>
+        <item name="android:backgroundTint">@color/brand_orange</item>
+        <item name="background">@color/brand_orange</item>
+        <item name="android:background">@color/brand_orange</item>
+    </style>
+
+    <style name="Widget.OurAwesomeApp.BlueButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/brand_blue</item>
+        <item name="android:backgroundTint">@color/brand_blue</item>
+        <item name="background">@color/brand_blue</item>
+        <item name="android:background">@color/brand_blue</item>
+    </style>
 </resources>
