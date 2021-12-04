@@ -4,17 +4,28 @@ import com.haroldadmin.cnradapter.NetworkResponse
 import com.nikitastroganov.androidcourse.data.network.request.CreateProfileRequest
 import com.nikitastroganov.androidcourse.data.network.request.RefreshAuthTokensRequest
 import com.nikitastroganov.androidcourse.data.network.request.SignInWithEmailRequest
-import com.nikitastroganov.androidcourse.data.network.response.GetUsersResponse
 import com.nikitastroganov.androidcourse.data.network.response.VerificationTokenResponse
 import com.nikitastroganov.androidcourse.data.network.response.error.*
 import com.nikitastroganov.androidcourse.entity.AuthTokens
 import com.nikitastroganov.androidcourse.entity.Post
-import retrofit2.http.Query
+import com.nikitastroganov.androidcourse.entity.User
 
 class MockApi : Api {
 
-    override suspend fun getUsers(): GetUsersResponse {
-        return GetUsersResponse(emptyList())
+    override suspend fun getUsers(): NetworkResponse<List<User>, Unit> {
+        return NetworkResponse.Success(
+            body = listOf(
+                User(
+                    id = 0,
+                    userName = "mock-user",
+                    firstName = "mock-user",
+                    lastName = "mock-user",
+                    avatarUri = "https://reqres.in/img/faces/1-image.jpg",
+                    groupName = null
+                )
+            ),
+            code = 200
+        )
     }
 
     override suspend fun signInWithEmail(request: SignInWithEmailRequest): NetworkResponse<AuthTokens, SignInWithEmailErrorResponse> {
