@@ -14,17 +14,16 @@
         <item name="android:textColor">@color/brand_blue</item>
     </style>
 
-    <style name="Widget.OurAwesomeApp.OrangeButton" parent="Widget.MaterialComponents.Button">
-        <item name="backgroundTint">@color/brand_orange</item>
-        <item name="android:backgroundTint">@color/brand_orange</item>
-        <item name="background">@color/brand_orange</item>
-        <item name="android:background">@color/brand_orange</item>
+    <style name="Widget.Main.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:minHeight">56dp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="Widget.OurAwesomeApp.BlueButton" parent="Widget.MaterialComponents.Button">
+    <style name="Widget.Main.Button.OrangeButton">
+        <item name="backgroundTint">@color/brand_orange</item>
+    </style>
+
+    <style name="Widget.Main.Button.BlueButton">
         <item name="backgroundTint">@color/brand_blue</item>
-        <item name="android:backgroundTint">@color/brand_blue</item>
-        <item name="background">@color/brand_blue</item>
-        <item name="android:background">@color/brand_blue</item>
     </style>
 </resources>
