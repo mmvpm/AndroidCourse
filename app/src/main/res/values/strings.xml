@@ -30,4 +30,6 @@
     <string name="profile_logout_button_text">Выйти</string>
     <string name="common_general_error_text">Произошла ошибка</string>
     <string name="common_counter_prefix">+%d</string>
+    <string name="email_confirmation_help_text">Код подтвержения выслан вам на почту</string>
+    <string name="email_confirmation_button_text">Подтвердить</string>
 </resources>
