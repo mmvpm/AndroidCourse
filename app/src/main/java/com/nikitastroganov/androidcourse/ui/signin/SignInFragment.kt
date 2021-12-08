@@ -1,5 +1,7 @@
 package com.nikitastroganov.androidcourse.ui.signin
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
@@ -35,6 +37,7 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        runLogoAnimation()
         viewBinding.backButton.applyInsetter {
             type(statusBars = true) { margin() }
         }
@@ -93,5 +96,18 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
 
     private fun decideSignInButtonEnabledState(email: String?, password: String?) {
         viewBinding.signInButton.isEnabled = !(email.isNullOrBlank() || password.isNullOrBlank())
+    }
+
+    private fun runLogoAnimation() {
+        ObjectAnimator.ofFloat(
+            viewBinding.mknLogoImageView,
+            "translationX",
+            -100f, 100f
+        ).apply {
+            duration = 3000
+            repeatMode = ValueAnimator.REVERSE
+            repeatCount = ValueAnimator.INFINITE
+            start()
+        }
     }
 }
