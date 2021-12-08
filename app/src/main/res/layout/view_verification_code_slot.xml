@@ -11,6 +11,7 @@
         android:id="@+id/slotValueTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="27sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
