@@ -1,42 +1,43 @@
 package com.nikitastroganov.androidcourse.ui.signup
 
 import androidx.lifecycle.viewModelScope
-import com.nikitastroganov.androidcourse.repository.AuthRepositoryOld
+import com.nikitastroganov.androidcourse.interactor.AuthInteractor
 import com.nikitastroganov.androidcourse.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SignUpViewModel : BaseViewModel() {
+@HiltViewModel
+class SignUpViewModel @Inject constructor(
+    private val authInteractor: AuthInteractor
+): BaseViewModel() {
 
     private val _eventChannel = Channel<Event>(Channel.BUFFERED)
 
-    fun eventsFlow(): Flow<Event> {
-        return _eventChannel.receiveAsFlow()
-    }
+    val eventsFlow: Flow<Event>
+        get() = _eventChannel.receiveAsFlow()
 
     fun signUp(
-        firstname: String,
-        lastname: String,
+        firstName: String,
+        lastName: String,
         nickname: String,
         email: String,
         password: String
     ) {
         viewModelScope.launch {
-            try {
-                AuthRepositoryOld.signUp(
-                    firstname,
-                    lastname,
-                    nickname,
-                    email,
-                    password
-                )
-                // _eventChannel.send(Event.SignUpSuccess)
-                _eventChannel.send(Event.SignUpEmailConfirmationRequired)
-            } catch (error: Exception) {
-                _eventChannel.send(Event.SignUpEmailConfirmationRequired)
-            }
+//            try {
+//                authInteractor.signInWithEmail(
+//                    email = email,
+//                    password = password
+//                )
+//                _eventChannel.send(Event.SignUpSuccess)
+//            } catch (error: Exception) {
+//                _eventChannel.send(Event.SignUpEmailConfirmationRequired)
+//            }
+            _eventChannel.send(Event.SignUpEmailConfirmationRequired)
         }
     }
 

@@ -6,9 +6,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.nikitastroganov.androidcourse.ui.base.BaseFragment
 import com.nikitastroganov.androidcourse.R
 import com.nikitastroganov.androidcourse.databinding.FragmentMainBinding
+import com.nikitastroganov.androidcourse.ui.base.BaseFragment
+import dev.chrisbanes.insetter.applyInsetter
 
 class MainFragment : BaseFragment(R.layout.fragment_main) {
 
@@ -22,6 +23,9 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
             val navController =
                 (childFragmentManager.findFragmentById(R.id.mainFragmentNavigationHost) as NavHostFragment).navController
             bottomNavigationView.setupWithNavController(navController)
+            bottomNavigationView.applyInsetter {
+                type(navigationBars = true) { margin() }
+            }
         }
     }
 }
