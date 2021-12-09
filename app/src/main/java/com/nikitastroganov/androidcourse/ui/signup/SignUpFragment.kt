@@ -47,6 +47,9 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
         viewBinding.backButton.applyInsetter {
             type(statusBars = true) { margin() }
         }
+        viewBinding.signUpButton.applyInsetter {
+            type(navigationBars = true) { margin() }
+        }
         viewBinding.backButton.setOnClickListener {
             onBackButtonPressed()
         }

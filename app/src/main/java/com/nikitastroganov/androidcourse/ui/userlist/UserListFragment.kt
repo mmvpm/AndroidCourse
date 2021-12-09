@@ -15,6 +15,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.nikitastroganov.androidcourse.R
 import com.nikitastroganov.androidcourse.databinding.FragmentUserListBinding
 import com.nikitastroganov.androidcourse.ui.base.BaseFragment
+import dev.chrisbanes.insetter.applyInsetter
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -29,6 +30,10 @@ class UserListFragment : BaseFragment(R.layout.fragment_user_list) {
         setupRecyclerView()
         switchLoadingButton(true)
         subscribeToViewState()
+
+        viewBinding.usersRecyclerView.applyInsetter {
+            type(statusBars = true) { margin() }
+        }
     }
 
     private fun subscribeToViewState() {
