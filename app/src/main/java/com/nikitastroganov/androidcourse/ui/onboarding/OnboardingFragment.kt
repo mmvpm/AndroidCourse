@@ -1,8 +1,11 @@
 package com.nikitastroganov.androidcourse.ui.onboarding
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
-import android.widget.Toast
+import androidx.core.os.postDelayed
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -55,6 +58,7 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
     override fun onResume() {
         super.onResume()
         player?.play()
+        autoscroll()
     }
 
     override fun onPause() {
@@ -89,5 +93,31 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
             viewBinding.playerView.player?.volume = 0F
             viewBinding.volumeControlButton.setImageResource(R.drawable.ic_volume_off_white_24dp)
         }
+    }
+
+    private var viewPagerPage = 0
+    private var autoScrollIndex = 0
+
+    private fun autoscroll() {
+        viewBinding.viewPager.setCurrentItem(viewPagerPage, true)
+
+        viewBinding.viewPager.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                    autoScrollIndex += 1
+                    val autoScrollIndexSaved = autoScrollIndex
+                    viewPagerPage = position
+
+                    Handler(Looper.getMainLooper()).postDelayed(4000) {
+                        activity?.runOnUiThread {
+                            if (autoScrollIndex == autoScrollIndexSaved) {
+                                viewPagerPage = (viewPagerPage + 1) % 3
+                                viewBinding.viewPager.setCurrentItem(viewPagerPage, true)
+                            }
+                        }
+                    }
+                }
+            }
+        )
     }
 }
