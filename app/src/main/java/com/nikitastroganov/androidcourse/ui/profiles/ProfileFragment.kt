@@ -1,5 +1,6 @@
 package com.nikitastroganov.androidcourse.ui.profiles
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -8,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bumptech.glide.Glide
 import com.nikitastroganov.androidcourse.R
 import com.nikitastroganov.androidcourse.databinding.FragmentProfileBinding
 import com.nikitastroganov.androidcourse.ui.base.BaseFragment
@@ -33,6 +35,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
         viewBinding.logoutButton.setOnClickListener {
             viewModel.logout()
         }
+        setUpUser()
     }
 
     private fun subscribeToEvents() {
@@ -53,5 +56,16 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
                 }
             }
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setUpUser() {
+        val user = viewModel.getUser()
+        viewBinding.fullNameTextView.text = "${user.firstName} ${user.lastName}"
+        viewBinding.nicknameTextView.text = "@${user.userName}"
+        Glide.with(viewBinding.avatarImageView)
+            .load(user.avatarUri).circleCrop()
+            .placeholder(R.drawable.ic_mkn_logo)
+            .into(viewBinding.avatarImageView)
     }
 } 
