@@ -1,8 +1,11 @@
 package com.nikitastroganov.androidcourse.ui.onboarding
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
-import android.widget.Toast
+import androidx.core.os.postDelayed
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -17,10 +20,16 @@ import com.nikitastroganov.androidcourse.R
 import com.nikitastroganov.androidcourse.databinding.FragmentOnboardingBinding
 import com.nikitastroganov.androidcourse.onboardingTextAdapterDelegate
 import com.nikitastroganov.androidcourse.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.abs
+import kotlin.math.min
 
+@AndroidEntryPoint
 class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
 
     private val viewBinding by viewBinding(FragmentOnboardingBinding::bind)
+
+    private val viewModel: OnboardingViewModel by viewModels()
 
     private var player: ExoPlayer? = null
     private var playerVolumeOn = false
@@ -39,6 +48,15 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
 
         viewBinding.viewPager.setTextPages()
         viewBinding.viewPager.attachDots(viewBinding.onboardingTextTabLayout)
+        viewBinding.viewPager.offscreenPageLimit = 1
+
+        viewBinding.viewPager.setPageTransformer { page: View, position: Float ->
+            val shift = abs(position)
+            page.scaleX = 1 - shift / 2
+            page.scaleY = 1 - shift / 2
+            page.translationX = -400 * position
+            page.alpha = min(1.0f, 1 - shift + 0.3f)
+        }
 
         viewBinding.volumeControlButton.setOnClickListener {
             playerVolumeOn = !playerVolumeOn
@@ -55,16 +73,20 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
     override fun onResume() {
         super.onResume()
         player?.play()
+        viewModel.isScrolled = true
+        autoscroll()
     }
 
     override fun onPause() {
         super.onPause()
         player?.pause()
+        viewModel.isScrolled = false
     }
 
     override fun onDestroy() {
         super.onDestroy()
         player?.release()
+        viewModel.isScrolled = false
     }
 
     private fun ViewPager2.setTextPages() {
@@ -89,5 +111,34 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
             viewBinding.playerView.player?.volume = 0F
             viewBinding.volumeControlButton.setImageResource(R.drawable.ic_volume_off_white_24dp)
         }
+    }
+
+    private val autoScrollingDelay = 4000L
+
+    private fun autoscroll() {
+        viewBinding.viewPager.setCurrentItem(viewModel.viewPagerPage, true)
+
+        viewBinding.viewPager.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                    viewModel.autoScrollIndex += 1
+                    val autoScrollIndexSaved = viewModel.autoScrollIndex
+                    viewModel.viewPagerPage = position
+
+                    Handler(Looper.getMainLooper()).postDelayed(autoScrollingDelay) {
+                        activity?.runOnUiThread {
+                            if (viewModel.isScrolled && viewModel.autoScrollIndex == autoScrollIndexSaved) {
+                                viewModel.viewPagerPage = (viewModel.viewPagerPage + 1) % 3
+                                viewBinding.viewPager.setCurrentItem(viewModel.viewPagerPage, true)
+                            }
+                        }
+                    }
+                }
+            }
+        )
     }
 }
