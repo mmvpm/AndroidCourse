@@ -52,7 +52,6 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
                 email = viewBinding.emailEditText.text?.toString() ?: "",
                 password = viewBinding.passwordEditText.text?.toString() ?: ""
             )
-            findNavController().navigate(R.id.registered_user_nav_graph)
         }
         decideSignInButtonEnabledState(
             viewBinding.emailEditText.text?.toString(),
