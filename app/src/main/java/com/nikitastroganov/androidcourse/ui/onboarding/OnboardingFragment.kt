@@ -25,6 +25,8 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
 
     private val viewBinding by viewBinding(FragmentOnboardingBinding::bind)
 
+    private val viewModel: OnboardingViewModel by viewModels()
+
     private var player: ExoPlayer? = null
     private var playerVolumeOn = false
 
@@ -95,24 +97,21 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
         }
     }
 
-    private var viewPagerPage = 0
-    private var autoScrollIndex = 0
-
     private fun autoscroll() {
-        viewBinding.viewPager.setCurrentItem(viewPagerPage, true)
+        viewBinding.viewPager.setCurrentItem(viewModel.viewPagerPage, true)
 
         viewBinding.viewPager.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                    autoScrollIndex += 1
-                    val autoScrollIndexSaved = autoScrollIndex
-                    viewPagerPage = position
+                    viewModel.autoScrollIndex += 1
+                    val autoScrollIndexSaved = viewModel.autoScrollIndex
+                    viewModel.viewPagerPage = position
 
                     Handler(Looper.getMainLooper()).postDelayed(4000) {
                         activity?.runOnUiThread {
-                            if (autoScrollIndex == autoScrollIndexSaved) {
-                                viewPagerPage = (viewPagerPage + 1) % 3
-                                viewBinding.viewPager.setCurrentItem(viewPagerPage, true)
+                            if (viewModel.autoScrollIndex == autoScrollIndexSaved) {
+                                viewModel.viewPagerPage = (viewModel.viewPagerPage + 1) % 3
+                                viewBinding.viewPager.setCurrentItem(viewModel.viewPagerPage, true)
                             }
                         }
                     }
