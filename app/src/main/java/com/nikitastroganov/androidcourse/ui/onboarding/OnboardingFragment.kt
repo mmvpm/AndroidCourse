@@ -20,7 +20,11 @@ import com.nikitastroganov.androidcourse.R
 import com.nikitastroganov.androidcourse.databinding.FragmentOnboardingBinding
 import com.nikitastroganov.androidcourse.onboardingTextAdapterDelegate
 import com.nikitastroganov.androidcourse.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.abs
+import kotlin.math.min
 
+@AndroidEntryPoint
 class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
 
     private val viewBinding by viewBinding(FragmentOnboardingBinding::bind)
@@ -44,6 +48,15 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
 
         viewBinding.viewPager.setTextPages()
         viewBinding.viewPager.attachDots(viewBinding.onboardingTextTabLayout)
+        viewBinding.viewPager.offscreenPageLimit = 1
+
+        viewBinding.viewPager.setPageTransformer { page: View, position: Float ->
+            val shift = abs(position)
+            page.scaleX = 1 - shift / 2
+            page.scaleY = 1 - shift / 2
+            page.translationX = -400 * position
+            page.alpha = min(1.0f, 1 - shift + 0.3f)
+        }
 
         viewBinding.volumeControlButton.setOnClickListener {
             playerVolumeOn = !playerVolumeOn
@@ -60,17 +73,20 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
     override fun onResume() {
         super.onResume()
         player?.play()
+        viewModel.isScrolled = true
         autoscroll()
     }
 
     override fun onPause() {
         super.onPause()
         player?.pause()
+        viewModel.isScrolled = false
     }
 
     override fun onDestroy() {
         super.onDestroy()
         player?.release()
+        viewModel.isScrolled = false
     }
 
     private fun ViewPager2.setTextPages() {
@@ -97,19 +113,25 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
         }
     }
 
+    private val autoScrollingDelay = 4000L
+
     private fun autoscroll() {
         viewBinding.viewPager.setCurrentItem(viewModel.viewPagerPage, true)
 
         viewBinding.viewPager.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
                     viewModel.autoScrollIndex += 1
                     val autoScrollIndexSaved = viewModel.autoScrollIndex
                     viewModel.viewPagerPage = position
 
-                    Handler(Looper.getMainLooper()).postDelayed(4000) {
+                    Handler(Looper.getMainLooper()).postDelayed(autoScrollingDelay) {
                         activity?.runOnUiThread {
-                            if (viewModel.autoScrollIndex == autoScrollIndexSaved) {
+                            if (viewModel.isScrolled && viewModel.autoScrollIndex == autoScrollIndexSaved) {
                                 viewModel.viewPagerPage = (viewModel.viewPagerPage + 1) % 3
                                 viewBinding.viewPager.setCurrentItem(viewModel.viewPagerPage, true)
                             }
