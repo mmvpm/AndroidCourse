@@ -14,16 +14,16 @@ class MockApi : Api {
 
     override suspend fun getUsers(): NetworkResponse<List<User>, Unit> {
         return NetworkResponse.Success(
-            body = listOf(
+            body = (1 until 13).toList().map {
                 User(
-                    id = 0,
-                    userName = "mock-user",
-                    firstName = "mock-user",
-                    lastName = "mock-user",
-                    avatarUri = "https://reqres.in/img/faces/1-image.jpg",
-                    groupName = null
+                    id = it.toLong(),
+                    userName = "mock-user-$it",
+                    firstName = "mock-user-$it",
+                    lastName = "mock-user-$it",
+                    avatarUri = "https://reqres.in/img/faces/$it-image.jpg",
+                    groupName = "mock-group-${it % 3 + 1}"
                 )
-            ),
+            },
             code = 200
         )
     }
