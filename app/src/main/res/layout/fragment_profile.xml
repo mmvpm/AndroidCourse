@@ -15,14 +15,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/avatarImageView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profile"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_mkn_logo"
+        app:layout_constraintTop_toBottomOf="@+id/logoutButton" />
+
+    <TextView
+        android:id="@+id/fullNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="Имя Фамилия"
+        android:textAlignment="center"
+        android:textSize="27sp"
+        app:layout_constraintTop_toBottomOf="@+id/avatarImageView" />
+
+    <TextView
+        android:id="@+id/nicknameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="\@nickname"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/fullNameTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
