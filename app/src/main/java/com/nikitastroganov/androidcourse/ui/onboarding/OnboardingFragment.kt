@@ -70,6 +70,11 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        player?.release()
+    }
+
     override fun onResume() {
         super.onResume()
         player?.play()
@@ -85,7 +90,6 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
 
     override fun onDestroy() {
         super.onDestroy()
-        player?.release()
         viewModel.isScrolled = false
     }
 
