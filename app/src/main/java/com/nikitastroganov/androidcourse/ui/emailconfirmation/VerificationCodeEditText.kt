@@ -23,7 +23,7 @@ class VerificationCodeEditText @JvmOverloads constructor(
     private val viewBinding =
         ViewVerificationCodeEditTextBinding.inflate(LayoutInflater.from(context), this)
 
-    var numberOfSlots: Int by Delegates.observable(5) { _, _, newValue ->
+    private var numberOfSlots: Int by Delegates.observable(5) { _, _, newValue ->
         for (i in 0 until newValue) {
             LayoutInflater.from(context).inflate(
                 R.layout.vew_verification_code_layout, viewBinding.slotLinearLayout
