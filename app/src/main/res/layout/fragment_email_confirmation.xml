@@ -36,7 +36,8 @@
         android:layout_marginVertical="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/helpTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/helpTextView"
+        app:vcet_numberOfSlots="4" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/confirmButton"

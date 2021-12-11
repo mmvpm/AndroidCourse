@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import com.nikitastroganov.androidcourse.R
 import com.nikitastroganov.androidcourse.databinding.ViewVerificationCodeEditTextBinding
 import java.lang.Math.min
+import kotlin.properties.Delegates
 
 class VerificationCodeEditText @JvmOverloads constructor(
     context: Context,
@@ -22,19 +23,21 @@ class VerificationCodeEditText @JvmOverloads constructor(
     private val viewBinding =
         ViewVerificationCodeEditTextBinding.inflate(LayoutInflater.from(context), this)
 
-    private val slotViews: List<VerificationCodeSlotView> =
-        listOf(
-            viewBinding.slot1,
-            viewBinding.slot2,
-            viewBinding.slot3,
-            viewBinding.slot4,
-            viewBinding.slot5,
-            viewBinding.slot6
-        )
+    private var numberOfSlots: Int by Delegates.observable(5) { _, _, newValue ->
+        for (i in 0 until newValue) {
+            LayoutInflater.from(context).inflate(
+                R.layout.vew_verification_code_layout, viewBinding.slotLinearLayout
+            )
+        }
+        slotViews = (0 until newValue).toMutableList().map {
+            viewBinding.slotLinearLayout.getChildAt(it) as VerificationCodeSlotView
+        }
+        slotValues = Array(newValue) { null }
+    }
 
-    var numberOfSlots = 6
+    private var slotViews = emptyList<VerificationCodeSlotView>()
 
-    private val slotValues: Array<CharSequence?> = Array(numberOfSlots) { null }
+    private var slotValues = emptyArray<CharSequence?>()
 
     var onVerificationCodeFilledListener: (String) -> Unit = {}
 
